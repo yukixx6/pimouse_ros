@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import sys, rospy
+import sys, rospy, time
 from pimouse_ros.msg import MotorFreqs
 from geometry_msgs.msg import Twist
 
@@ -15,13 +15,14 @@ class Switch():
 
                                        	freq.left_hz = 0
                                        	freq.right_hz = 0
+					pub.publish(freq)
 
                                	if f == [0]:
-                                       	freq.left_hz = 400
-                                    	freq.right_hz = 400
-					
-
-                       	pub.publish(freq)
+					freq.left_hz = 400
+                                        freq.right_hz = 400
+					pub.publish(freq)
+					time.sleep(1)
+							
                	except IOError:
                        	rospy.logerr("cannot write to " + devfile)
 
